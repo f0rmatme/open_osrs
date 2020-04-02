@@ -39,7 +39,8 @@ We've set up a separate document for our [contribution guidelines](https://githu
 
 ## Supported By  
 
-OpenOSRS uses profiling tools provided by [[YourKit](https://www.yourkit.com/)
+OpenOSRS uses profiling tools provided by [YourKit](https://www.yourkit.com/)
+
 Thanks for [JetBrains](https://www.jetbrains.com/idea/download/) providing our developers with IntelliJ IDEA Ultimate Edition.
 
 ## Wiki
