@@ -6,7 +6,7 @@
 
 [![Build Status](https://github.com/open-osrs/runelite/workflows/OpenOSRS%20-%20CI%20(push)/badge.svg)](https://github.com/open-osrs/runelite/actions?query=workflow%3A%22OpenOSRS+-+CI+%28push%29%22)
 [![HitCount](http://hits.dwyl.io/open-osrs/runelite.svg)](http://hits.dwyl.io/open-osrs/runelite)  
-[OpenOSRS](https://openosrs.com)  is an extended version of [RuneLite](https://github.com/runelite/runelite) that provides more functionality and less restrictions while staying fully open-source. We are not affiliated with RuneLite.
+[OpenOSRS](https://openosrs.com) is a fully open-source client with no restrictions. We are not affiliated with Jagex or RuneLite.
 
 ## Discord  
 
@@ -30,6 +30,10 @@
 
 We have migrated the project to Gradle. Information on how to setup and build the project can be found at https://github.com/open-osrs/runelite/wiki/Building-with-IntelliJ-IDEA
 
+## Install from Pre-built Binaries 
+
+Installers for Windows, Mac and Linux can be found at https://github.com/open-osrs/launcher/releases
+
 ## License  
 
 OpenOSRS is licensed under the BSD 2-clause license. See the license header in the respective file to be sure.
@@ -46,4 +50,4 @@ Thanks for [JetBrains](https://www.jetbrains.com/idea/download/) providing our d
 
 ## Wiki
 
-Check out the [OpenOSRS Wiki to learn more](https://github.com/open-osrs/runelite/wiki)
+Check out the [OpenOSRS wiki to learn more](https://github.com/open-osrs/runelite/wiki)
