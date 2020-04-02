@@ -39,4 +39,8 @@ We've set up a separate document for our [contribution guidelines](https://githu
 
 ## Supported By  
 
-OpenOSRS uses profiling tools provided by [![YourKit](https://www.yourkit.com/images/yklogo.png)](https://www.yourkit.com/java/profiler/)
+OpenOSRS uses profiling tools provided by [![YourKit](https://www.opendaylight.org/wp-content/uploads/sites/14/2018/02/logo-yourkit.png)](https://www.yourkit.com/java/profiler/)
+
+## Wiki
+
+Check out the [![OpenOSRS](https://github.com/open-osrs/runelite/wiki) Wiki to learn more about OpenOSRS
