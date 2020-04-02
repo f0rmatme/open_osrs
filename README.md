@@ -24,6 +24,7 @@
 - [runelite-mixins](runelite-mixins/src/main/java/net/runelite) - Classes containing the Objects to be injected using the injector-plugin
 - [runescape-api](runescape-api/src/main/java/net/runelite) - Mappings correspond to these interfaces, runelite-api is a subset of this
 - [runelite-client](runelite-client/src/main/java/net/runelite/client) - Game client with plugins
+- [wiki-scraper](wiki-scraper/src/main/java/net/runelite/data) - Scrapes the runescape wiki https://oldschool.runescape.wiki for the latest npc data
 
 ## Building  
 
