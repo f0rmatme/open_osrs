@@ -6,7 +6,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ba")
 @Implements("Tiles")
-public final class Tiles {
+public final class SceneRegion {
 	@ObfuscatedName("qs")
 	@ObfuscatedSignature(
 		signature = "Ldz;"
@@ -26,13 +26,13 @@ public final class Tiles {
 	@Export("Tiles_minPlane")
 	static int Tiles_minPlane;
 	@ObfuscatedName("d")
-	static byte[][][] field538;
+	static byte[][][] underlayIds;
 	@ObfuscatedName("v")
-	static byte[][][] field539;
+	static byte[][][] overlayPaths;
 	@ObfuscatedName("q")
-	static byte[][][] field540;
+	static byte[][][] overlayRotations;
 	@ObfuscatedName("t")
-	static int[][] field545;
+	static int[][] tileColors;
 	@ObfuscatedName("n")
 	@Export("Tiles_hueMultiplier")
 	static int[] Tiles_hueMultiplier;

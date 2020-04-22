@@ -26,13 +26,16 @@ package net.runelite.cache.region;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import lombok.Getter;
 import net.runelite.cache.definitions.LocationsDefinition;
 import net.runelite.cache.definitions.MapDefinition;
 import net.runelite.cache.definitions.MapDefinition.Tile;
 
+@Getter
 public class Region
 {
-
 	public static final int X = 64;
 	public static final int Y = 64;
 	public static final int Z = 4;
@@ -48,7 +51,9 @@ public class Region
 	private final byte[][][] overlayRotations = new byte[Z][X][Y];
 	private final byte[][][] underlayIds = new byte[Z][X][Y];
 
+	private Tile[][][] tiles = new Tile[Z][X][Y];
 	private final List<Location> locations = new ArrayList<>();
+
 
 	public Region(int id)
 	{
@@ -66,7 +71,7 @@ public class Region
 
 	public void loadTerrain(MapDefinition map)
 	{
-		Tile[][][] tiles = map.getTiles();
+		tiles = map.getTiles();
 		for (int z = 0; z < Z; z++)
 		{
 			for (int x = 0; x < X; x++)
@@ -175,6 +180,14 @@ public class Region
 	public List<Location> getLocations()
 	{
 		return locations;
+	}
+
+	public List<Location> getLocationsAt(int z, int x, int y) {
+		return locations.stream().filter(l ->
+				l.getPosition().getX() == x &&
+				l.getPosition().getY() == y &&
+				l.getPosition().getZ() == z)
+				.collect(Collectors.toList());
 	}
 
 	public int getRegionX()

@@ -2,11 +2,13 @@ package net.runelite.cache.definitions;
 
 import java.util.Arrays;
 import lombok.Data;
+import lombok.Setter;
 import net.runelite.cache.models.CircularAngle;
 import net.runelite.cache.models.FaceNormal;
 import net.runelite.cache.models.VertexNormal;
 
 @Data
+@Setter
 public class ModelDefinition
 {
 	public int id;
@@ -59,6 +61,68 @@ public class ModelDefinition
 	public transient int maxPriority;
 
 	public static transient int animOffsetX, animOffsetY, animOffsetZ;
+
+	public ModelDefinition() {}
+	
+	public ModelDefinition(ModelDefinition original, boolean shallowCopyVerts, boolean shallowCopyFaceColors, boolean shallowCopyFaceTextures) {
+		vertexCount = original.vertexCount;
+		faceCount = original.faceCount;
+		textureTriangleCount = original.textureTriangleCount;
+		if (shallowCopyVerts) {
+			vertexPositionsX = original.vertexPositionsX;
+			vertexPositionsY = original.vertexPositionsY;
+			vertexPositionsZ = original.vertexPositionsZ;
+		} else {
+			vertexPositionsX = new int[vertexCount];
+			vertexPositionsY = new int[vertexCount];
+			vertexPositionsZ = new int[vertexCount];
+			
+			for (int i=0;i<vertexCount;i++) {
+				vertexPositionsX[i] = original.vertexPositionsX[i];
+				vertexPositionsY[i] = original.vertexPositionsY[i];
+				vertexPositionsZ[i] = original.vertexPositionsZ[i];
+			}
+		}
+		
+		if (shallowCopyFaceColors) {
+			faceColors = original.faceColors;
+		} else {
+			faceColors = new short[faceCount];
+			for (int i=0;i<faceCount;i++) {
+				faceColors[i] = original.faceColors[i];
+			}
+		}
+
+		if (!shallowCopyFaceTextures && faceTextures != null) {
+			faceTextures = new short[faceCount];
+			for (int i=0;i<faceCount;i++) {
+				faceTextures[i] = original.faceTextures[i];
+			}
+		} else {
+			faceTextures = original.faceTextures;
+		}
+
+		id = original.id;
+		vertexCount = original.vertexCount;
+		faceCount = original.faceCount;
+		faceVertexIndices1 = original.faceVertexIndices1;
+		faceVertexIndices2 = original.faceVertexIndices2;
+		faceVertexIndices3 = original.faceVertexIndices3;
+		faceRenderTypes = original.faceRenderTypes;
+		faceRenderPriorities = original.faceRenderPriorities;
+		faceAlphas = original.faceAlphas;
+		priority = original.priority;
+		textureTriangleVertexIndices1 = original.textureTriangleVertexIndices1;
+		textureTriangleVertexIndices2 = original.textureTriangleVertexIndices2;
+		textureTriangleVertexIndices3 = original.textureTriangleVertexIndices3;
+		vertexNormals = original.vertexNormals;
+		faceNormals = original.faceNormals;
+		textureCoordinates = original.textureCoordinates;
+		vertexSkins = original.vertexSkins;
+		vertexGroups = original.vertexGroups;
+		faceSkins = original.faceSkins;
+		textureRenderTypes = original.textureRenderTypes;
+	}
 
 	public void computeNormals()
 	{
@@ -338,7 +402,22 @@ public class ModelDefinition
 		System.arraycopy(origVZ, 0, vertexPositionsZ, 0, origVZ.length);
 	}
 
-	public void animate(int type, int[] frameMap, int dx, int dy, int dz)
+	// FrameMapDefinition = Skeleton
+	// FrameDefition = Animation
+	public void animate(FramesDefinition frames, int frame) {
+		if (this.vertexGroups == null || frame == -1) {
+			return;
+		}
+		AnimationDefinition animation = frames.frames[frame];
+		SkeletonDefinition skeleton = animation.skeleton;
+
+		for (int i = 0; i<animation.transformCount; i++) {
+			int lbl = animation.transformSkeletonLabels[i];
+			transform(skeleton.transformTypes[lbl], skeleton.labels[lbl], animation.tranformXs[i], animation.tranformYs[i], animation.transformZs[i]);
+		}
+	}
+
+	public void transform(int type, int[] frameMap, int dx, int dy, int dz)
 	{
 		if (origVX == null)
 		{
@@ -507,7 +586,7 @@ public class ModelDefinition
 		}
 	}
 
-	public void method1493()
+	public void rotateMulti()
 	{
 		int var1;
 		for (var1 = 0; var1 < this.vertexCount; ++var1)
@@ -525,7 +604,7 @@ public class ModelDefinition
 		reset();
 	}
 
-	public void rotate1()
+	public void rotateY90Ccw()
 	{
 		for (int var1 = 0; var1 < this.vertexCount; ++var1)
 		{
@@ -537,7 +616,7 @@ public class ModelDefinition
 		reset();
 	}
 
-	public void rotate2()
+	public void rotateY180()
 	{
 		for (int var1 = 0; var1 < this.vertexCount; ++var1)
 		{
@@ -548,7 +627,7 @@ public class ModelDefinition
 		reset();
 	}
 
-	public void rotate3()
+	public void rotateY270Ccw()
 	{
 		for (int var1 = 0; var1 < this.vertexCount; ++var1)
 		{

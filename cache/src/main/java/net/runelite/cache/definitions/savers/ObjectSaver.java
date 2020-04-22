@@ -33,14 +33,14 @@ public class ObjectSaver
 	public byte[] save(ObjectDefinition obj)
 	{
 		OutputStream out = new OutputStream();
-		if (obj.getObjectTypes() != null && obj.getObjectModels() != null)
+		if (obj.getModels() != null && obj.getModelIds() != null)
 		{
 			out.writeByte(1);
-			out.writeByte(obj.getObjectTypes().length);
-			for (int i = 0; i < obj.getObjectTypes().length; ++i)
+			out.writeByte(obj.getModels().length);
+			for (int i = 0; i < obj.getModels().length; ++i)
 			{
-				out.writeShort(obj.getObjectModels()[i]);
-				out.writeByte(obj.getObjectTypes()[i]);
+				out.writeShort(obj.getModelIds()[i]);
+				out.writeByte(obj.getModels()[i]);
 			}
 		}
 		if (obj.getName() != null)
@@ -48,13 +48,13 @@ public class ObjectSaver
 			out.writeByte(2);
 			out.writeString(obj.getName());
 		}
-		if (obj.getObjectTypes() == null && obj.getObjectModels() != null)
+		if (obj.getModels() == null && obj.getModelIds() != null)
 		{
 			out.writeByte(5);
-			out.writeByte(obj.getObjectModels().length);
-			for (int i = 0; i < obj.getObjectModels().length; ++i)
+			out.writeByte(obj.getModelIds().length);
+			for (int i = 0; i < obj.getModelIds().length; ++i)
 			{
-				out.writeShort(obj.getObjectModels()[i]);
+				out.writeShort(obj.getModelIds()[i]);
 			}
 		}
 		out.writeByte(14);
@@ -198,13 +198,13 @@ public class ObjectSaver
 			out.writeByte(82);
 			out.writeShort(obj.getMapAreaId());
 		}
-		if (obj.getConfigChangeDest() != null)
+		if (obj.getTransforms() != null)
 		{
 			out.writeByte(92);
-			out.writeShort(obj.getVarbitID());
-			out.writeShort(obj.getVarpID());
+			out.writeShort(obj.getTransformVarbit());
+			out.writeShort(obj.getTransformVarp());
 
-			int[] c = obj.getConfigChangeDest();
+			int[] c = obj.getTransforms();
 			out.writeShort(c[c.length - 1]);
 			out.writeByte(c.length - 2);
 			for (int i = 0; i <= c.length - 2; ++i)

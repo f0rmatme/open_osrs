@@ -24,15 +24,93 @@
  */
 package net.runelite.cache.definitions.loaders;
 
+import net.runelite.cache.IndexType;
 import net.runelite.cache.definitions.MapDefinition;
 import net.runelite.cache.definitions.MapDefinition.Tile;
+import net.runelite.cache.fs.Archive;
+import net.runelite.cache.fs.Index;
+import net.runelite.cache.fs.Storage;
+import net.runelite.cache.fs.Store;
 import net.runelite.cache.io.InputStream;
+import net.runelite.cache.region.HeightCalc;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import static net.runelite.cache.region.Region.X;
 import static net.runelite.cache.region.Region.Y;
 import static net.runelite.cache.region.Region.Z;
 
 public class MapLoader
 {
+	public MapLoader() {}
+
+	public MapLoader(Store store) {
+		this.store = store;
+		index = store.getIndex(IndexType.MAPS);
+		mapDefCache = new HashMap<>();
+	}
+
+	private Store store;
+	private Index index;
+	private Map<Integer, MapDefinition> mapDefCache;
+
+	public Tile getWorldTile(int z, int x, int y) {
+		MapDefinition m = loadFromWorldCoordinates(x, y);
+		if (m == null) {
+			Tile t = new Tile();
+			t.height = 0;
+			return t;
+		}
+
+		x -= m.getRegionX();
+		y -= m.getRegionY();
+
+		Tile t = m.getTiles()[z][x][y];
+		if (t == null) {
+			t = new Tile();
+			t.height = 0;
+		}
+
+		return t;
+	}
+
+	public MapDefinition loadFromWorldCoordinates(int x, int y) {
+		int regionId = (x >>> 6 << 8) | y >>> 6;
+		if (mapDefCache.containsKey(regionId)) {
+			return mapDefCache.get(regionId);
+		}
+
+		index = store.getIndex(IndexType.MAPS);
+
+		x = regionId >> 8;
+		y = regionId & 0xFF;
+
+		Storage storage = store.getStorage();
+		Archive map = index.findArchiveByName("m" + x + "_" + y);
+		Archive land = index.findArchiveByName("l" + x + "_" + y);
+
+		if (map == null || land == null)
+		{
+			return null;
+		}
+
+		byte[] data = new byte[0];
+		try {
+			data = map.decompress(storage.loadArchive(map));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		int baseX = ((regionId >> 8) & 0xFF) << 6; // local coords are in bottom 6 bits (64*64)
+		int baseY = (regionId & 0xFF) << 6;
+		MapDefinition mapDef = new MapLoader().load(baseX, baseY, data);
+
+		mapDefCache.put(regionId, mapDef);
+		return mapDef;
+	}
+
 	public MapDefinition load(int regionX, int regionY, byte[] b)
 	{
 		MapDefinition map = new MapDefinition();
@@ -84,6 +162,33 @@ public class MapLoader
 							tile.underlayId = (byte) (attribute - 81);
 						}
 					}
+
+//					if (tile.height == null)
+//					{
+//						if (z == 0)
+//						{
+//							tile.height = -HeightCalc.calculate(map.getRegionX() + x + 0xe3b7b, map.getRegionY() + y + 0x87cce) * 8;
+//						}
+//						else
+//						{
+//							tile.height = tiles[z - 1][x][y].height - 240;
+//						}
+//					} else {
+//						int height = tile.getHeight();
+//						if (height == 1)
+//						{
+//							height = 0;
+//						}
+//
+//						if (z == 0)
+//						{
+//							tile.height = -height * 8;
+//						}
+//						else
+//						{
+//							tile.height = tiles[z - 1][x][y].height - height * 8;
+//						}
+//					}
 				}
 			}
 		}

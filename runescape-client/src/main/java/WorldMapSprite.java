@@ -50,7 +50,7 @@ public final class WorldMapSprite {
 				return null;
 			} else {
 				var1 = SecureRandomCallable.newScript(var2);
-				Script.Script_cached.put(var1, (long)var0);
+				Script.Script_cached.put((long)var0, var1);
 				return var1;
 			}
 		}
@@ -67,19 +67,19 @@ public final class WorldMapSprite {
 				if (var5 >= 0 && var5 < 104 && var4 >= 0 && var4 < 104) {
 					SoundCache.field1462[0][var5][var4] = 127;
 					if (var0 == var5 && var5 > 0) {
-						Tiles.Tiles_heights[0][var5][var4] = Tiles.Tiles_heights[0][var5 - 1][var4];
+						SceneRegion.Tiles_heights[0][var5][var4] = SceneRegion.Tiles_heights[0][var5 - 1][var4];
 					}
 
 					if (var0 + var2 == var5 && var5 < 103) {
-						Tiles.Tiles_heights[0][var5][var4] = Tiles.Tiles_heights[0][var5 + 1][var4];
+						SceneRegion.Tiles_heights[0][var5][var4] = SceneRegion.Tiles_heights[0][var5 + 1][var4];
 					}
 
 					if (var4 == var1 && var4 > 0) {
-						Tiles.Tiles_heights[0][var5][var4] = Tiles.Tiles_heights[0][var5][var4 - 1];
+						SceneRegion.Tiles_heights[0][var5][var4] = SceneRegion.Tiles_heights[0][var5][var4 - 1];
 					}
 
 					if (var3 + var1 == var4 && var4 < 103) {
-						Tiles.Tiles_heights[0][var5][var4] = Tiles.Tiles_heights[0][var5][var4 + 1];
+						SceneRegion.Tiles_heights[0][var5][var4] = SceneRegion.Tiles_heights[0][var5][var4 + 1];
 					}
 				}
 			}

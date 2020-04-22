@@ -158,7 +158,7 @@ public class WorldMapRegion {
 						for (int var11 = 0; var11 < var10.length; ++var11) {
 							WorldMapDecoration var12 = var10[var11];
 							ObjectDefinition var13 = WorldMapSection2.getObjectDefinition(var12.objectDefinitionId);
-							if (Tiles.method1239(var13)) {
+							if (SceneRegion.method1239(var13)) {
 								this.getIcon(var13, var8, var6, var7, var5);
 								continue label50;
 							}
@@ -520,7 +520,7 @@ public class WorldMapRegion {
 
 				for (int var8 = 0; var8 < var7.length; ++var8) {
 					WorldMapDecoration var9 = var7[var8];
-					if (!Entity.method3374(var9.decoration)) {
+					if (!Renderable.method3374(var9.decoration)) {
 						int var11 = var9.decoration;
 						boolean var10 = var11 == WorldMapDecorationType.field2740.id;
 						if (!var10) {

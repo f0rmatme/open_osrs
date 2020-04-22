@@ -6,7 +6,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("cv")
 @Implements("DynamicObject")
-public class DynamicObject extends Entity {
+public class DynamicObject extends Renderable {
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
 		intValue = -778595855
@@ -65,13 +65,13 @@ public class DynamicObject extends Entity {
 	@ObfuscatedSignature(
 		signature = "(IIIIIIIZLee;)V"
 	)
-	DynamicObject(int var1, int var2, int var3, int var4, int var5, int var6, int var7, boolean var8, Entity var9) {
-		this.id = var1;
-		this.type = var2;
-		this.orientation = var3;
-		this.plane = var4;
-		this.x = var5;
-		this.y = var6;
+	DynamicObject(int id, int type, int orientation, int plane, int x, int y, int var7, boolean var8, Renderable var9) {
+		this.id = id;
+		this.type = type;
+		this.orientation = orientation;
+		this.plane = plane;
+		this.x = x;
+		this.y = y;
 		if (var7 != -1) {
 			this.sequenceDefinition = SpotAnimationDefinition.SequenceDefinition_get(var7);
 			this.frame = 0;
@@ -126,33 +126,33 @@ public class DynamicObject extends Entity {
 			this.cycleStart = Client.cycle - var1;
 		}
 
-		ObjectDefinition var12 = WorldMapSection2.getObjectDefinition(this.id);
-		if (var12.transforms != null) {
-			var12 = var12.transform();
+		ObjectDefinition objectDefinition = WorldMapSection2.getObjectDefinition(this.id);
+		if (objectDefinition.transforms != null) {
+			objectDefinition = objectDefinition.transform();
 		}
 
-		if (var12 == null) {
+		if (objectDefinition == null) {
 			return null;
 		} else {
 			int var2;
 			int var3;
 			if (this.orientation != 1 && this.orientation != 3) {
-				var2 = var12.sizeX;
-				var3 = var12.sizeY;
+				var2 = objectDefinition.sizeX;
+				var3 = objectDefinition.sizeY;
 			} else {
-				var2 = var12.sizeY;
-				var3 = var12.sizeX;
+				var2 = objectDefinition.sizeY;
+				var3 = objectDefinition.sizeX;
 			}
 
 			int var4 = (var2 >> 1) + this.x;
 			int var5 = (var2 + 1 >> 1) + this.x;
 			int var6 = (var3 >> 1) + this.y;
 			int var7 = (var3 + 1 >> 1) + this.y;
-			int[][] var8 = Tiles.Tiles_heights[this.plane];
+			int[][] var8 = SceneRegion.Tiles_heights[this.plane];
 			int var9 = var8[var4][var7] + var8[var5][var6] + var8[var4][var6] + var8[var5][var7] >> 2;
 			int var10 = (this.x << 7) + (var2 << 6);
 			int var11 = (this.y << 7) + (var3 << 6);
-			return var12.getModelDynamic(this.type, this.orientation, var8, var10, var9, var11, this.sequenceDefinition, this.frame);
+			return objectDefinition.getModelDynamic(this.type, this.orientation, var8, var10, var9, var11, this.sequenceDefinition, this.frame);
 		}
 	}
 

@@ -66,4 +66,7 @@ public interface WallObject extends TileObject
 	 */
 	Shape getConvexHull();
 	Shape getConvexHull2();
+
+	Renderable getRenderable1();
+	Renderable getRenderable2();
 }

@@ -75,6 +75,21 @@ public class RegionLoader
 		}
 	}
 
+	public Region loadRegionFromWorldCoordinates(int x, int y) {
+		int regionId = (x >>> 6 << 8) | y >>> 6;
+		Region r = regions.get(regionId);
+		if (r == null) {
+			try {
+				r = loadRegionFromArchive(regionId);
+				regions.put(regionId, r);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return r;
+	}
+
 	public Region loadRegionFromArchive(int i) throws IOException
 	{
 		int x = i >> 8;
@@ -145,6 +160,10 @@ public class RegionLoader
 	public Collection<Region> getRegions()
 	{
 		return regions.values();
+	}
+
+	public Region getRegion(int regionId) {
+		return regions.get(regionId);
 	}
 
 	public Region findRegionForWorldCoordinates(int x, int y)

@@ -54,13 +54,13 @@ public final class WallDecoration {
 		signature = "Lee;"
 	)
 	@Export("entity1")
-	public Entity entity1;
+	public Renderable entity1;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		signature = "Lee;"
 	)
 	@Export("entity2")
-	public Entity entity2;
+	public Renderable entity2;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
 		longValue = -7258048285485333861L
@@ -121,7 +121,7 @@ public final class WallDecoration {
 					}
 
 					String var4 = var0.substring(0, var3);
-					int var6 = Tiles.method1227(var1, var2 - 1);
+					int var6 = SceneRegion.method1227(var1, var2 - 1);
 					String var5;
 					if (var6 < 999999999) {
 						var5 = Integer.toString(var6);

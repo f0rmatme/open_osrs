@@ -6,7 +6,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ct")
 @Implements("Projectile")
-public final class Projectile extends Entity {
+public final class Projectile extends Renderable {
 	@ObfuscatedName("sj")
 	@ObfuscatedSignature(
 		signature = "Lco;"
@@ -249,19 +249,19 @@ public final class Projectile extends Entity {
 		garbageValue = "29577048"
 	)
 	@Export("getVarbit")
-	public static int getVarbit(int var0) {
-		VarbitDefinition var2 = (VarbitDefinition)VarbitDefinition.VarbitDefinition_cached.get((long)var0);
+	public static int getVarbit(int id) {
+		VarbitDefinition var2 = (VarbitDefinition)VarbitDefinition.VarbitDefinition_cached.get((long)id);
 		VarbitDefinition var1;
 		if (var2 != null) {
 			var1 = var2;
 		} else {
-			byte[] var7 = VarbitDefinition.VarbitDefinition_archive.takeFile(14, var0);
+			byte[] var7 = VarbitDefinition.VarbitDefinition_archive.takeFile(14, id);
 			var2 = new VarbitDefinition();
 			if (var7 != null) {
 				var2.decode(new Buffer(var7));
 			}
 
-			VarbitDefinition.VarbitDefinition_cached.put(var2, (long)var0);
+			VarbitDefinition.VarbitDefinition_cached.put((long)id, var2);
 			var1 = var2;
 		}
 

@@ -56,7 +56,7 @@ public class UserComparator9 extends AbstractUserComparator {
 			}
 
 			var1.postDecode();
-			FloorOverlayDefinition.FloorOverlayDefinition_cached.put(var1, (long)var0);
+			FloorOverlayDefinition.FloorOverlayDefinition_cached.put((long)var0, var1);
 			return var1;
 		}
 	}
@@ -77,13 +77,13 @@ public class UserComparator9 extends AbstractUserComparator {
 	)
 	static void method3498() {
 		Tiles.Tiles_minPlane = 99;
-		Tiles.field538 = new byte[4][104][104];
-		class348.field4061 = new byte[4][104][104];
-		Tiles.field539 = new byte[4][104][104];
-		Tiles.field540 = new byte[4][104][104];
+		Tiles.underlayIds = new byte[4][104][104];
+		class348.overlayIds = new byte[4][104][104];
+		Tiles.overlayPaths = new byte[4][104][104];
+		Tiles.overlayRotations = new byte[4][104][104];
 		WorldMapSection3.field404 = new int[4][105][105];
 		SoundCache.field1462 = new byte[4][105][105];
-		Tiles.field545 = new int[105][105];
+		Tiles.tileColors = new int[105][105];
 		GrandExchangeOfferAgeComparator.Tiles_hue = new int[104];
 		UserComparator6.Tiles_saturation = new int[104];
 		StructDefinition.Tiles_lightness = new int[104];

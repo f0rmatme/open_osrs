@@ -1,5 +1,5 @@
-/*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+package net.runelite.cache.util;/*
+ * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,19 +22,28 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.cache.definitions;
 
-import lombok.Data;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
-@Data
-public class FrameDefinition
+public class CacheProperties
 {
-	public int id; // file id
-	public FramemapDefinition framemap;
-	public int[] translator_x;
-	public int[] translator_y;
-	public int[] translator_z;
-	public int translatorCount = -1;
-	public int[] indexFrameIds;
-	public boolean showing;
+	private static Properties getProperties() throws IOException
+	{
+		Properties properties = new Properties();
+		InputStream resourceAsStream = StoreLocation.class.getResourceAsStream("/cache.properties");
+		properties.load(resourceAsStream);
+		return properties;
+	}
+
+	public static int getRsVersion() throws IOException
+	{
+		return Integer.parseInt(getProperties().getProperty("rs.version"));
+	}
+
+	public static int getCacheVersion() throws IOException
+	{
+		return Integer.parseInt(getProperties().getProperty("cache.version"));
+	}
 }
