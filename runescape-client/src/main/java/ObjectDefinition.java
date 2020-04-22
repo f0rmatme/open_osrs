@@ -721,7 +721,7 @@ public class ObjectDefinition extends DualNode {
 			modelId = this.modelIds.length;
 
 			for (int i = 0; i < modelId; ++i) {
-				int modelId = this.modelIds[i];
+				modelId = this.modelIds[i];
 				if (var4) {
 					modelId += 65536;
 				}

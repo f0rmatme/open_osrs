@@ -1172,7 +1172,7 @@ final class GrandExchangeOfferAgeComparator implements Comparator {
 							}
 						}
 
-						if ((class51.field404[zi][xi][yi] & var4) != 0) {
+						if ((WorldMapSection3.field404[zi][xi][yi] & var4) != 0) {
 							var9 = xi;
 							var10 = xi;
 							var11 = yi;

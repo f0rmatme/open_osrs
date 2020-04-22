@@ -74,5 +74,5 @@ public interface GameObject extends TileObject
 
 	Model getModel();
 
-    Renderable getRenderable();
+	Renderable getRenderable();
 }
